@@ -31,10 +31,10 @@ Structure of each recipe:
 - Run `npm run dev` to start the server on port 3000
 - You'll do all of your work in the **data-access-layer directory**
 
-####1. Initialize the Sequelize project
+#### 1. Initialize the Sequelize project
 - type `npx sequelize-cli init`
 
-####2. Using  `psql` or Postbird, create a new user
+#### 2. Using  `psql` or Postbird, create a new user
 - for this application named "sequelizerecipe_box_app" with the password "HfKfK79k" _and the ability to create a database
 - Change all the "user" and "password" values to the information for the user that you created in Phase 2.
 - Change the "database" values to be "recipe_box_development", "recipe_box_test", and "recipe_box_production".
@@ -43,7 +43,7 @@ Structure of each recipe:
   - Make sure to remove the comma from the preceding line so that it's valid JSON.
 - add `"seederStorage": "sequelize"` to each of the different blocks
 
-####3. Create your database
+#### 3. Create your database
 - run `npx sequelize-cli db:create`
   - should print:
     ```
@@ -68,7 +68,7 @@ Structure of each recipe:
   - add the "unique" property set to true to the "name" configuration
   - change the type for "name" from `Sequelize.STRING` to `Sequelize.STRING(20)`.
 
-####4. Run your migration
+#### 4. Run your migration
 - run `npx sequelize-cli db:migrate`
   - should print:
     ```
@@ -79,7 +79,7 @@ Structure of each recipe:
     ```
     -  confirm that the table "MeasurementUnits" is created by running `\dt` in your `psql` command or `SELECT * FROM "MeasurementUnits"`
 
-####5. Create the seed data
+#### 5. Create the seed data
 - crate a **seeder**  by running `npx sequelize-cli seed:generate --name default-measurement-units`
 - insert seed data
   - replace the `up` method with:
@@ -114,7 +114,7 @@ Structure of each recipe:
 - run `db:seed:all`
 - run `\dt`
 
-####6 . Recipe table model
+#### 6 . Recipe table model
 - Generate a model for the recipe
 - Customize the migration so the "title" column is not nullable
 - Run your migration and confirm that you defined it correctly by checking the attributes in the description of the table.
@@ -146,7 +146,7 @@ Structure of each recipe:
 - run `\dt`
   - You should see all non-null columns and a foreign key between the "Instructions" table and the "Recipes" table.
 
-####7. Create the ingredients model
+#### 7. Create the ingredients model
 - create the model and migration with:
 
 | Column Name       | Column Type   | Constraints  |
@@ -157,11 +157,11 @@ Structure of each recipe:
 | foodStuff         | VARCHAR(500)  | NOT NULL     |
 | recipeId          | INTEGER       | FK, NOT NULL |
 
-####8. Seed data for all the tables
+#### 8. Seed data for all the tables
 - create seeder files
 - run `npx sequelize-cli db:seed:all`
 
-####9. Updating models with references
+#### 9. Updating models with references
 - open the **models/recipe.js** file
   - in the `associate` function, replace the comment with:
   ```js
@@ -169,7 +169,7 @@ Structure of each recipe:
   ```
 - modify the Ingredient, MeasurementUnit, and Recipe files accordingly with the `hasMany` and `belongsTo` associations, always specifying the name of the foreign key column that binds the two tables together.
 
-####10. Updating models with Validations
+#### 10. Updating models with Validations
 - open the **models/instruction.js** file
   - change the code to:
   ```js
@@ -191,14 +191,14 @@ Structure of each recipe:
     return Instruction;
   };
   ```
-####11. Cascade delete for recipes
+#### 11. Cascade delete for recipes
 -  Open the models/recipe.js file
   - modify the second argument of each of the `hasMany` calls to include two new property/value pairs:
     - `onDelete: 'CASCADE'`
     - `hooks: true`
   - don't delete the `foreignKey` property that you put there in Phase 9.
 
-####12. Building the repositories
+#### 12. Building the repositories
 - run `npm run dev`
 - follow hints to create queries in the following files:
   - recipes-repository.js
